@@ -1,7 +1,21 @@
-<div class="container m-auto my-4">
+<h1>Virtual Knowledge</h1>
+
+
+<% @meetings.each do |meeting| %>
+
+    <div>
+        <h3><%= link_to meeting.title, meeting_path(meeting) %></h3>
+        <p><%= meeting.published_date %></p>
+    </div>
+    <div class="comment-count">
+        <%= meeting.comments.count %>
+    </div>
+
+    <div class="container m-auto my-4">
     <% unless current_user.meetings.any? %>
         <%= render "meetings_cta" %>
     <% else %>
         <%= render "meetings_landing", meetings: @meetings %>
-    <% end %>
-</div>
+
+<% end %>
+

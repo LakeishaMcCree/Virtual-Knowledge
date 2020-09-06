@@ -1,3 +1,22 @@
+<h1><%= @meeting.title %></h1>
+
+<% form_for [@meeting, Comment.new] do |f| %>
+    <p>
+        <%= f.label :name, "Author" %><br>
+        <%= f.text_field :name %><br>
+        <%= f.label :body, "Comment Description" %><br>
+        <%= f.text_area :body %><br>
+    </p>
+    <p>
+    <%= f.submit "Add Comment" %>
+<% end %>
+
+<p><%= link_to "Edit Post", edit_meeting_path(@blog) %></p>
+
+<p><%= link_to "Back to Posts", meetings_path %>
+<p><%= link_to "Delete", meeting_path(@meeting), method: "delete" %></p>
+
+
 <div class="max-w-lg my-10 m-auto">
   <div class="p-10 bg-white border border-grey-light rounded">
 
