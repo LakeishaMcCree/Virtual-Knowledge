@@ -11,11 +11,7 @@
         <%= meeting.comments.count %>
     </div>
 
-    <div class="container m-auto my-4">
-    <% unless current_user.meetings.any? %>
-        <%= render "meetings_cta" %>
-    <% else %>
-        <%= render "meetings_landing", meetings: @meetings %>
+    
 
 <% end %>
 

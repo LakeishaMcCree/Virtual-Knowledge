@@ -18,20 +18,22 @@
             <div class="mb-6">
                 <%= form.label :start_time, class: "label" %>
                 <div class="flex items-center justify-between max-w-md">
-                    <%= form.datetime_select :start_time, { start_day: Date.taoday, start_year: Date.today.year, minute_step: 15 }, { class: "select py-2 px-2 mr-2" } %>
+                    <%= form.datetime_select :start_time, { start_day: Date.today, start_year: Date.today.year, minute_step: 15 }, { class: "select py-2 px-2 mr-2" } %>
                 </div>
             </div>
 
             <div class="mb-6">
                 <%= form.label :end_time, class: "label" %>
                 <div class="flex items-center justify-between max-w-md">
-                    <%= form.datetime_select :end_time, { start_day: Date.taoday, start_year: Date.today.year, minute_step: 15 }, { class: "select py-2 px-2 mr-2" } %>
+                    <%= form.datetime_select :end_time, { start_day: Date.today, start_year: Date.today.year, minute_step: 15 }, { class: "select py-2 px-2 mr-2" } %>
                 </div>
             </div>
 
             <hr class="border" />
 
             <%= form.submit class: "btn btn-primary text-base py-3 px-5" %>
-
-        <% end %>
         </div>
+        
+    <% end %>
+<% end %>
+        

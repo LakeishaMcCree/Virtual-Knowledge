@@ -1,14 +1,14 @@
 class MeetingsController < ApplicationController
-    before_action :authenticate_user!
+    
     before_action :set_meeting, only: [:show, :edit, :update, :destroy]
     before_action :must_be_admin, only: [:active_sessions] 
 
     def index
-        if current_user.admin?
+        #if current_user
             @meetings = Meeting.all 
-        else
-            @meetings = current_user.meetings.where(user_id: current_user)
-        end
+        #else
+            #@meetings = current_user.meetings.where(user_id: current_user)
+        #end
     end
 
     def show

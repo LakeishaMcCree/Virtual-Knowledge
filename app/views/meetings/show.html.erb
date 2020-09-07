@@ -11,10 +11,10 @@
     <%= f.submit "Add Comment" %>
 <% end %>
 
-<p><%= link_to "Edit Post", edit_meeting_path(@blog) %></p>
+<p><%= link_to "Edit Meeting", edit_meeting_path(@blog) %></p>
 
-<p><%= link_to "Back to Posts", meetings_path %>
-<p><%= link_to "Delete", meeting_path(@meeting), method: "delete" %></p>
+<p><%= link_to "Back to Meetings", meetings_path %>
+<p><%= link_to "Delete Meeting", meeting_path(@meeting), method: "delete" %></p>
 
 
 <div class="max-w-lg my-10 m-auto">

@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-    before_action :authenticate_user! 
+
     before_action :set_comment, only: [:edit, :update, :show, :destroy]
     before_action :set_meeting
 
@@ -39,5 +39,5 @@ class CommentsController < ApplicationController
     def comment_params
         params.require(:comment).permit(:reply)
     end
-    
+
 end
