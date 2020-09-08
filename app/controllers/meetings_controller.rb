@@ -1,6 +1,6 @@
 class MeetingsController < ApplicationController
     
-    before_action :set_meeting, only: [:show, :edit, :update, :destroy]
+    before_action :set_meeting, except: [:index, :new, :create]
     before_action :must_be_admin, only: [:active_sessions] 
 
     def index
@@ -12,6 +12,8 @@ class MeetingsController < ApplicationController
     end
 
     def show
+        @user = User.find_by_id(params[:id])
+        @meeting = Meeting.find_by_id(params[:id])
         @comment = Comment.new
     end
 
@@ -20,32 +22,30 @@ class MeetingsController < ApplicationController
     end
 
     def edit
-
+        @meeting = Meeting.find_by_id(params[:id])
     end
 
     def create
-        @meeting = Meeting.new(meeting_params)
-        @meeting.user_id = current_user.id 
+        @blog = current_user.meetings.create(meeting_params)
+        if 
+            @meeting.save
+            user_meetings_path(@meeting)
+        else
+            render :new
+        end 
     end
 
     def update
-        respond_to do |format|
-            if @meeting.update(meeting_params)
-                format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
-                #format.json { render :show, status: :ok, location: @meeting}
-            else
-                format.html { render :edit }
-                #format.json { render json: @meeting.errors, status:unprocessable_entity }
-            end
+        if @meetings.update(meeting_params)
+            redirect_to user_meeting_path(current_user, @meeting)
+        else
+            render :edit
         end
     end
 
     def destroy
         @meeting.destroy
-        respond_to do |format|
-            format.html { redirect_to meetings_url, notice: 'Meeting was successfully destroyed.'}
-            #format.json { head :no_content }
-        end
+        redirect_to user_meetings_path(current_user)
     end
 
     def active_sessions
@@ -53,17 +53,20 @@ class MeetingsController < ApplicationController
     end
 
     private
-    def set_meeting
-        @meeting = Meeting.find(params[:id])
-    end
-
+    
     def meeting_params
-        params.require(:meeting).permit(:name, :start_time, :end_time)
+        params.require(:meeting).permit(:title, :start_time, :end_time)
     end
 
-    def must_be_admin
-        unless current_user.admin?
-            redirect_to meetings_path, alert: "You don't have access to this page"
-        end
+    def set_meeting
+        @meeting = Meeting.find_by_id(params[:id])
     end
+
+    
+
+    #def must_be_admin
+        #unless current_user.admin?
+            #redirect_to meetings_path, alert: "You don't have access to this page"
+        #end
+    #end
 end

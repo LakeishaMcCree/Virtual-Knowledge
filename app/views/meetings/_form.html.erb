@@ -1,39 +1,33 @@
-<%= form_with(model: meeting, local: true, class: "meeting-form") do |f| %>
-    <% if meeting.errors.any? %>
-        <div id="error_explanation">
-            <h2><%= pluralize(meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
-
-            <ul>
-            <% meeting.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-
-            <h3 class="mb-4">Meeting Information</h3>
-
-            <div class="mb-6">
-                <%= form.label :name, class: "label" %>
-                <%= form.text_field :name, class: "input" %>
-            </div>
-
-            <div class="mb-6">
-                <%= form.label :start_time, class: "label" %>
-                <div class="flex items-center justify-between max-w-md">
-                    <%= form.datetime_select :start_time, { start_day: Date.today, start_year: Date.today.year, minute_step: 15 }, { class: "select py-2 px-2 mr-2" } %>
-                </div>
-            </div>
-
-            <div class="mb-6">
-                <%= form.label :end_time, class: "label" %>
-                <div class="flex items-center justify-between max-w-md">
-                    <%= form.datetime_select :end_time, { start_day: Date.today, start_year: Date.today.year, minute_step: 15 }, { class: "select py-2 px-2 mr-2" } %>
-                </div>
-            </div>
-
-            <hr class="border" />
-
-            <%= form.submit class: "btn btn-primary text-base py-3 px-5" %>
-        </div>
-        
-    <% end %>
+<% if @meeting.errors.any? %>
+    <div id="error_explanation">
+        <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting from being created:</h2>
+        <ul>
+        <% @meeting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+        <% end %>
+        </ul>
+    </div>
 <% end %>
-        
+<%= form_for([current_user, meeting]) do |f| %>
+    <div>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    </div>
+    <br>
+
+    <div>
+        <%= f.label :start_time %>
+        <%= f.datetime_select :start_time, { start_day: Date.today, start_year: Date.today.year, minute_step: 15 } %>
+    </div>
+    <br>
+
+    <div>
+        <%= f.label :end_time %>
+        <%= f.datetime_select :end_time, { end_day: Date.today, end_year: Date.today.year, minute_step: 15 } %>
+    </div>
+    <br>
+
+    <%= f.submit button_name %>
+<% end %>
+
+

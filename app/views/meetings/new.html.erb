@@ -1,10 +1,6 @@
 <h1> Virtual Knowledge </h1>
 
+<%= render(partial: 'meetings/form', locals: { meeting: @meeting, button_name: "Create Meeting" }) %>%>
 
 
-<div class="max-w-lg m-auto px-4">
-    <h1 class="text-3xl mt-10">Schedule new tutoring session</h1>
-    <p class="text-lg text-grey-darker mb-6">Schedule a tutoring session by choosing the best time that works for you.</p>
-    <%= render(partial: 'meetings/form', locals: {meeting: @meeting, button_name: "Create Meeting"}) %>
-</div>
 

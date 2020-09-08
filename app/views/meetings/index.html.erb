@@ -1,10 +1,10 @@
 <h1>Virtual Knowledge</h1>
 
 
-<% @meetings.each do |meeting| %>
+<%= @meetings.each do |meeting| %>
 
     <div>
-        <h3><%= link_to meeting.title, meeting_path(meeting) %></h3>
+        <h3><%= link_to meeting.title, meeting_path(@meeting) %></h3>
         <p><%= meeting.published_date %></p>
     </div>
     <div class="comment-count">

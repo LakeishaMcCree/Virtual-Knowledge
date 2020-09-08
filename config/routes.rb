@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post "/login", to: "meetings#create"
 
   delete "/logout", to: "meetings#destroy", as: "logout"
-  resources :meetings 
+  #resources :meetings 
   resources :users, only: [] do
     resources :meetings, only: [:index]
   end
