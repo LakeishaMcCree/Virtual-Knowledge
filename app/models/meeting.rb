@@ -25,5 +25,4 @@ class Meeting < ApplicationRecord
       task.status == status
     end
   end
-
 end
