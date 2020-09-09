@@ -1,7 +1,6 @@
 class MeetingsController < ApplicationController
     
-    before_action :set_meeting, except: [:index, :new, :create]
-    before_action :must_be_admin, only: [:active_sessions] 
+    before_action :set_meeting, except: [:index, :new, :create] 
 
     def index
         #if current_user
@@ -21,12 +20,13 @@ class MeetingsController < ApplicationController
         @meeting = Meeting.new
     end
 
-    def edit
+    def edit # /blogs/:id/edit
         @meeting = Meeting.find_by_id(params[:id])
     end
 
     def create
-        @blog = current_user.meetings.create(meeting_params)
+        @meeting = Meeting.new(meeting_params)
+        @meeting.user_id = current_user.id 
         if 
             @meeting.save
             user_meetings_path(@meeting)
@@ -35,8 +35,8 @@ class MeetingsController < ApplicationController
         end 
     end
 
-    def update
-        if @meetings.update(meeting_params)
+    def update #patch /blogs/:id
+        if @meeting.update(meeting_params)
             redirect_to user_meeting_path(current_user, @meeting)
         else
             render :edit
@@ -48,19 +48,18 @@ class MeetingsController < ApplicationController
         redirect_to user_meetings_path(current_user)
     end
 
-    def active_sessions
-        @active_sessions = Meeting.where("end_time > ?", Time.now)
-    end
 
     private
     
-    def meeting_params
-        params.require(:meeting).permit(:title, :start_time, :end_time)
-    end
-
     def set_meeting
         @meeting = Meeting.find_by_id(params[:id])
     end
+
+    def meeting_params
+        params.require(:meeting).permit(:name, :start_time, :end_time, :user_id)
+    end
+
+    
 
     
 
